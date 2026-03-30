@@ -25,9 +25,17 @@ string readText(const string& filename) {
 string normalizeText(const string& text) {
     string result;
     for (char c : text) {
-        if (c == '¸') c = 'å';
-        if (c >= 'À' && c <= 'ß') c = c - 'À' + 'à';
-        if (c >= 'à' && c <= 'ÿ') result += c;
+        if (c == '¸') {
+            c = 'å';
+        }
+
+        if (c >= 'À' && c <= 'ß') { 
+            c = c - 'À' + 'à'; 
+        }
+
+        if (c >= 'à' && c <= 'ÿ') {
+            result += c;
+        }
     }
     return result;
 }
@@ -67,7 +75,10 @@ double indexOfCoincidence(const string& text) {
 
 double calculateH1(const string& text) {
     map<char, int> freq;
-    for (char c : text) freq[c]++;
+    for (char c : text) {
+        freq[c]++;
+    }
+
     double H = 0.0;
     int n = text.size();
     for (auto& p : freq) {
@@ -80,28 +91,37 @@ double calculateH1(const string& text) {
 int coincidenceCount(const string& text, int r) {
     int count = 0;
     int n = text.size();
-    for (int i = 0; i < n - r; i++)
-        if (text[i] == text[i + r]) count++;
+    for (int i = 0; i < n - r; i++){
+        if (text[i] == text[i + r]) {
+            count++;
+        }
+    }
+
     return count;
 }
 
 vector<string> splitIntoBlocks(const string& text, int r) {
     vector<string> blocks(r);
-    for (int i = 0; i < text.size(); i++)
+    for (int i = 0; i < text.size(); i++){
         blocks[i % r] += text[i];
+    }
     return blocks;
 }
 
 char mostFrequentChar(const string& text) {
     map<char, int> freq;
-    for (char c : text) freq[c]++;
+    for (char c : text) { 
+        freq[c]++; 
+    }
     char bestChar = 'à';
     int maxFreq = 0;
-    for (auto& p : freq)
+    for (auto& p : freq){
         if (p.second > maxFreq) {
             maxFreq = p.second;
             bestChar = p.first;
         }
+
+    }
     return bestChar;
 }
 
