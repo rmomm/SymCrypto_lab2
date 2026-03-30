@@ -77,5 +77,33 @@ double calculateH1(const string& text) {
     return H;
 }
 
+int coincidenceCount(const string& text, int r) {
+    int count = 0;
+    int n = text.size();
+    for (int i = 0; i < n - r; i++)
+        if (text[i] == text[i + r]) count++;
+    return count;
+}
+
+vector<string> splitIntoBlocks(const string& text, int r) {
+    vector<string> blocks(r);
+    for (int i = 0; i < text.size(); i++)
+        blocks[i % r] += text[i];
+    return blocks;
+}
+
+char mostFrequentChar(const string& text) {
+    map<char, int> freq;
+    for (char c : text) freq[c]++;
+    char bestChar = 'à';
+    int maxFreq = 0;
+    for (auto& p : freq)
+        if (p.second > maxFreq) {
+            maxFreq = p.second;
+            bestChar = p.first;
+        }
+    return bestChar;
+}
+
 
 
