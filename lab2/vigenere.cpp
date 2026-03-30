@@ -18,7 +18,9 @@ char indexToChar(int i) {
 string readText(const string& filename) {
     ifstream file(filename);
     string text, line;
-    while (getline(file, line)) text += line;
+    while (getline(file, line)) { 
+        text += line; 
+    }
     return text;
 }
 
@@ -66,10 +68,14 @@ string vigenereDecrypt(const string& text, const string& key) {
 
 double indexOfCoincidence(const string& text) {
     map<char, int> freq;
-    for (char c : text) freq[c]++;
+    for (char c : text) { 
+        freq[c]++; 
+    }
     int n = text.size();
     double sum = 0;
-    for (auto& p : freq) sum += p.second * (p.second - 1);
+    for (auto& p : freq) { 
+        sum += p.second * (p.second - 1); 
+    }
     return sum / (double)(n * (n - 1));
 }
 
@@ -96,7 +102,6 @@ int coincidenceCount(const string& text, int r) {
             count++;
         }
     }
-
     return count;
 }
 
@@ -126,4 +131,48 @@ char mostFrequentChar(const string& text) {
 }
 
 
+string roughKey(const vector<string>& blocks) {
+    string key;
+    for (const string& b : blocks) {
+        char k = (charToIndex(mostFrequentChar(b)) - charToIndex('î') + M) % M + 'à';
+        key += k;
+    }
+    return key;
+}
+
+string findKeyAdvanced(const vector<string>& blocks) {
+    string key;
+    for (const string& block : blocks) {
+        vector<int> freq(M, 0);
+        for (char c : block) { 
+            freq[charToIndex(c)]++; 
+        }
+        double maxM = -1;
+        int bestShift = 0;
+        for (int g = 0; g < M; g++) {
+            double Mval = 0;
+            for (int t = 0; t < M; t++) {
+                int shiftedIndex = (t + g) % M;
+                double p = russianFreq[t];
+                int count = freq[shiftedIndex];
+                Mval += p * count;
+            }
+            if (Mval > maxM) {
+                maxM = Mval;
+                bestShift = g;
+            }
+        }
+        key += indexToChar(bestShift);
+    }
+    return key;
+}
+
+double averageIndPeriod(const string& text, int r) {
+    vector<string> blocks = splitIntoBlocks(text, r);
+    double sum = 0.0;
+    for (const string& block : blocks){
+        sum += indexOfCoincidence(block);
+    }
+    return sum / r;
+}
 
