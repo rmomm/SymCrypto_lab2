@@ -12,18 +12,17 @@
 using namespace std;
 
 const string ALPHABET = "אבגדהוזחטיךכלםמןנסעףפץצקרשתûü‎‏ÿ"; 
-const int M = ALPHABET.size();
+const int M = 32;
 
 string readText(const string& filename);
-string cleanText(const string& text);
-string removeSpaces(const string& text);
+string normalizeText(const string& text);
 
-double calculateH1(const map<char, int>& freq, int total);
-double calculateH2(const map<string, int>& freq, int total);
+int charToIndex(char c);
+char indexToChar(int i);
 
-map<char, int> LetterFreq(const string& text);
-map<string, int> BigramFreq(const string& text);
-map<string, int> BigramFreqN(const string& text);
-void printLetters(const string& text, ofstream& out);
-void printBigram(const string& text, ofstream& out);
-void printBigramN(const string& text, ofstream& out);
+string vigenereEncrypt(const string& text, const string& key);
+string vigenereDecrypt(const string& text, const string& key);
+double indexOfCoincidence(const string& text);
+
+
+double calculateH1(const string& text);
