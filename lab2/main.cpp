@@ -80,6 +80,11 @@
         string keyRough = roughKey(blocks);
         out << "Метод найчастішої літери: " << keyRough << "\n";
 
+        string dec = vigenereDecrypt(text, keyRough);
+
+        out << " дешифрований текст\n";
+        out << dec << "\n\n";
+
         string keyAdvanced = findKeyAdvanced(blocks);
         out << "Метод обчисллення функції M(g): " << keyAdvanced << "\n\n";
 
