@@ -39,7 +39,7 @@
 
         out << "Довжина тексту: " << text.size() << "\n\n";
 
-        out << "Метод збігів D(r) \n";
+        out << "Набори індексів відповідності D(r) \n";
 
         int best_r_D = 0;
         int maxD = 0;
@@ -56,7 +56,7 @@
 
         out << "\nНайкращий r (D): " << best_r_D << "\n\n";
 
-        out << " Метод індексу відповідності \n";
+        out << "Індекси відповідності \n";
 
         int best_r_I = 0;
         double bestI = 0;
@@ -78,10 +78,10 @@
         vector<string> blocks = splitIntoBlocks(text, r);
 
         string keyRough = roughKey(blocks);
-        out << "Грубий ключ: " << keyRough << "\n";
+        out << "Метод найчастішої літери: " << keyRough << "\n";
 
         string keyAdvanced = findKeyAdvanced(blocks);
-        out << "Точний ключ: " << keyAdvanced << "\n\n";
+        out << "Метод обчисллення функції M(g): " << keyAdvanced << "\n\n";
 
         string decrypted = vigenereDecrypt(text, keyAdvanced);
 
@@ -92,7 +92,7 @@
         out << "Індекс відповідності дешифрованого тексту: " << Itext << "\n";
 
         double H = calculateH1(decrypted);
-        out << "Ентропія H1: " << H << "\n";
+        out << "Ентропія H: " << H << "\n";
 
         out.close();
 
